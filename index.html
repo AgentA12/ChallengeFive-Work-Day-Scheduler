@@ -8,12 +8,15 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     />
+
     <link
       rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+      integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
       crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
+
     <link
       href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
       rel="stylesheet"
@@ -23,15 +26,126 @@
   </head>
 
   <body>
+    <!-- HEADER/JUMBOTRON -->
     <header class="jumbotron">
       <h1 class="display-3">Work Day Scheduler</h1>
       <p class="lead">A simple calendar app for scheduling your work day</p>
       <p id="currentDay" class="lead"></p>
-      
     </header>
-    <div class="container">
-      <!-- Timeblocks go here -->
-    </div>
+    <!-- MAIN CONTAINER -->
+    <main class="container mb-4">
+      <!-- MAIN ROW CONTAINER -->
+      <div class="row-cols-1">
+        <!-- SUB CONTAINER 9AM -->
+        <div class="col">
+          <div class="container">
+            <div class="row">
+              <div class="col border-top text-right pt-3">9AM</div>
+              <div class="col-9 bg-secondary"></div>
+              <div class="col bg-primary saveBtn d-flex justify-content-center align-items-center">
+                <i class="fa-regular fa-floppy-disk fa-2x"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- SUB CONTAINER 10AM -->
+        <div class="col">
+          <div class="container">
+            <div class="row">
+              <div class="col border-top text-right pt-3">10AM</div>
+              <div class="col-9 bg-secondary"></div>
+              <div class="col bg-primary saveBtn d-flex justify-content-center align-items-center">
+                <i class="fa-regular fa-floppy-disk fa-2x"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- SUB CONTAINER 11AM -->
+        <div class="col">
+          <div class="container">
+            <div class="row">
+              <div class="col border-top text-right pt-3">11AM</div>
+              <div class="col-9 bg-secondary"></div>
+              <div class="col bg-primary saveBtn d-flex justify-content-center align-items-center">
+                <i class="fa-regular fa-floppy-disk fa-2x"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- SUB CONTAINER 12PM -->
+        <div class="col">
+          <div class="container">
+            <div class="row">
+              <div class="col border-top text-right pt-3">12PM</div>
+              <div class="col-9 bg-secondary"></div>
+              <div class="col bg-primary saveBtn d-flex justify-content-center align-items-center">
+                <i class="fa-regular fa-floppy-disk fa-2x"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- SUB CONTAINER 1PM -->
+        <div class="col">
+          <div class="container">
+            <div class="row">
+              <div class="col border-top text-right pt-3">1PM</div>
+              <div class="col-9 bg-secondary"></div>
+              <div class="col bg-primary saveBtn d-flex justify-content-center align-items-center">
+                <i class="fa-regular fa-floppy-disk fa-2x"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- SUB CONTAINER 2PM -->
+        <div class="col">
+          <div class="container">
+            <div class="row">
+              <div class="col border-top text-right pt-3">2PM</div>
+              <div class="col-9 bg-secondary"></div>
+              <div class="col bg-primary saveBtn d-flex justify-content-center align-items-center">
+                <i class="fa-regular fa-floppy-disk fa-2x"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- SUB CONTAINER 3PM -->
+        <div class="col">
+          <div class="container">
+            <div class="row">
+              <div class="col border-top text-right pt-3">3PM</div>
+              <div class="col-9 bg-secondary"></div>
+              <div class="col bg-primary saveBtn d-flex justify-content-center align-items-center">
+                <i class="fa-regular fa-floppy-disk fa-2x"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- SUB CONTAINER 4PM-->
+        <div class="col">
+          <div class="container">
+            <div class="row">
+              <div class="col border-top text-right pt-3">4PM</div>
+              <div class="col-9 bg-secondary"></div>
+              <div class="col bg-primary saveBtn d-flex justify-content-center align-items-center">
+                <i class="fa-regular fa-floppy-disk fa-2x"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- SUB CONTAINER 5PM -->
+        <div class="col">
+          <div class="container">
+            <div class="row">
+              <div class="col border-top text-right pt-3">5PM</div>
+              <div class="col-9 bg-secondary"></div>
+              <div class="col bg-primary saveBtn d-flex justify-content-center align-items-center">
+                <i class="fa-regular fa-floppy-disk fa-2x"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>

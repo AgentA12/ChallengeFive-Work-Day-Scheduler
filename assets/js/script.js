@@ -6,4 +6,3 @@ setInterval(() => {
 }, ((1000 * 60) * 60) * 12);
 //display the date use the element with the id "currentDay"
 $("#currentDay").text(CurrentDayVariable);
-
