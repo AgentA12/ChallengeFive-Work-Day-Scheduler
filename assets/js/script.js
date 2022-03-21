@@ -92,6 +92,22 @@ $(".time-slot").each(function (index) {
   }
 });
 
+//add a click event listener on the save icons
+$(".fa-regular").click(function () {
+  //alert the user
+  //alert("Saved to local storage!")
+  //create array of objects for local storage
+  let taskData = [];
+
+  //get the matching time-slot elements text content and id to use for local storage
+  let storageId = $(this).parent().siblings().closest(".time-slot").attr("id");
+  let textContent = $(this).parent().siblings().closest(".time-slot").text();
+  //push to task array. NOTE: to add a key dynamically, use {[keyName]: valueName}. not {keyName: valueName}
+  taskData.push({ [storageId]: textContent });
+
+  saveTasks(taskData);
+});
+
 function getBgColor(div, id) {
   //declare an array of objects to hold time of day
   let timeOfDay = [
@@ -128,38 +144,4 @@ function getBgColor(div, id) {
   }
 }
 
-//not sure if removing this will break the code
-// setInterval(() => {
-//   let timeOfDayArray = [
-//     { eight: "8:00am" },
-//     { nine: "9:00am" },
-//     { ten: "10:00am" },
-//     { eleven: "11:00am" },
-//     { twelve: "12:00pm" },
-//     { one: "1:00pm" },
-//     { two: "2:00pm" },
-//     { three: "3:00pm" },
-//     { four: "4:00pm" },
-//     { five: "5:00pm" },
-//     { six: "6:00pm" },
-//   ];
-
-//   //correct way of indexing into a array of objects. NOT: timeOfDay[i].index
-//   for (i = 0; i < timeOfDayArray.length; i++) {
-//     if (timeOfDay[i][id]) {
-//       let firstMoment = moment(timeOfDayArray[i][id], "h:mma");
-//       let secondMoment = moment(timeOfDayArray[i][id], "h:mma").add(1, "hours");
-
-//       if (moment().isBetween(firstMoment, secondMoment)) {
-//         div.addClass("present");
-//         return div;
-//       } else if (!firstMoment.isAfter(moment())) {
-//         div.addClass("past");
-//         return div;
-//       } else {
-//         div.addClass("future");
-//         return div;
-//       }
-//     }
-//   }
-// }, 1000 * 60 * 45);
+function saveTasks() {}
