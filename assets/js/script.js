@@ -12,11 +12,11 @@ $("#currentDay").text(CurrentDayVariable);
 //add a click listner on all the elements with the class of time-slot
 $(".row").on("click", ".time-slot", function () {
   //get the text of the element clicked and trim it then store it in a variable, get the id too
-  let text = $(this).text().trim();
-  let uniqueId = $(this).attr("id");
+  var text = $(this).text().trim();
+  var uniqueId = $(this).attr("id");
 
   //create a textarea element and add a class and the specific id to it
-  let textInput = $("<textarea>");
+  var textInput = $("<textarea>");
   textInput
     .addClass("text-field-input col-md-9 col-8 text-md-left")
     .text(text)
@@ -32,7 +32,7 @@ $(".row").on("click", ".time-slot", function () {
 $(".row").on("blur", "textarea", function () {
   //get the text and the id
   var text = $(this).val().trim();
-  let secondId = $(this).attr("id");
+  var secondId = $(this).attr("id");
 
   timeSlot = $("<div><div/>");
   timeSlot.removeClass("past present future");
@@ -52,7 +52,7 @@ $(".time-slot").each(function (index) {
   //remove classes to ensure that no extra classes are applied
   $(this).removeClass("past present future");
   //delcare times of the day to reference
-  let timeOfDayInterval = [
+  var timeOfDayInterval = [
     { eight: "8:00am" },
     { nine: "9:00am" },
     { ten: "10:00am" },
@@ -66,14 +66,14 @@ $(".time-slot").each(function (index) {
     { six: "6:00pm" },
   ];
   //get the current elements id
-  let currentDivAttr = $(this).attr("id");
+  var currentDivAttr = $(this).attr("id");
   //loop through the dates array
   for (i = 0; i < timeOfDayInterval.length; i++) {
     //if the current elements id value matches the key of the days array check time
     if (timeOfDayInterval[i][currentDivAttr]) {
       //declare a variable as a moment object for the value of the matching time array and a variable thats one hour ahead
-      let firstMoment = moment(timeOfDayInterval[i][currentDivAttr], "h:mma");
-      let secondMoment = moment(
+      var firstMoment = moment(timeOfDayInterval[i][currentDivAttr], "h:mma");
+      var secondMoment = moment(
         timeOfDayInterval[i][currentDivAttr],
         "h:mma"
       ).add(1, "hours");
@@ -95,16 +95,16 @@ $(".time-slot").each(function (index) {
 //add a click event listener on the save icons
 $(".fa-regular").click(function () {
   //get the matching time-slot elements text content and id to use for local storage
-  let storageId = $(this).parent().siblings().closest(".time-slot").attr("id");
-  let textContent = $(this).parent().siblings().closest(".time-slot").text();
+  var storageId = $(this).parent().siblings().closest(".time-slot").attr("id");
+  var textContent = $(this).parent().siblings().closest(".time-slot").text();
   //save tasks to an object NOTE: to add a key dynamically, use {[keyName]: valueName}. not {keyName: valueName}
-  let dataObject = { [storageId]: textContent };
-  saveTasks(dataObject);
+  var dataObject = { [storageId]: textContent };
+  saveTasks(dataObject, storageId);
 });
 
 function getBgColor(div, id) {
   //declare an array of objects to hold time of day
-  let timeOfDay = [
+  var timeOfDay = [
     { eight: "8:00am" },
     { nine: "9:00am" },
     { ten: "10:00am" },
@@ -121,8 +121,8 @@ function getBgColor(div, id) {
   //NOTE: correct way of indexing into a array of objects is arrayName[index][key] NOT: arrayName[i].index
   for (i = 0; i < timeOfDay.length; i++) {
     if (timeOfDay[i][id]) {
-      let firstMoment = moment(timeOfDay[i][id], "h:mma");
-      let secondMoment = moment(timeOfDay[i][id], "h:mma").add(1, "hours");
+      var firstMoment = moment(timeOfDay[i][id], "h:mma");
+      var secondMoment = moment(timeOfDay[i][id], "h:mma").add(1, "hours");
 
       if (moment().isBetween(firstMoment, secondMoment)) {
         div.addClass("present");
@@ -138,11 +138,17 @@ function getBgColor(div, id) {
   }
 }
 
-function saveTasks(data) {
+function saveTasks(data, id) {
   var existingItems = JSON.parse(localStorage.getItem("tasks"));
-
+  //console.log(existingItems);
   if (existingItems === null) existingItems = [];
 
+  for (x = 0; x < existingItems.length; x++) {
+    if (existingItems[x][id]) {
+      console.log("this id exists already");
+      existingItems.splice(x, 1);
+    }
+  }
   existingItems.push(data);
 
   localStorage.setItem("tasks", JSON.stringify(existingItems));
@@ -151,7 +157,7 @@ function saveTasks(data) {
 function getLocalStorage() {
   var storedtasks = localStorage.getItem("tasks");
 
-  // if there are no tasks, set tasks to an empty array and return out of the function
+  // if there are no tasks return out of the function
   if (!storedtasks) {
     return false;
   }
@@ -162,10 +168,10 @@ function getLocalStorage() {
 }
 
 $(document).ready(function () {
-  let dataToAdd = getLocalStorage();
+  var dataToAdd = getLocalStorage();
 
   $(".time-slot").each(function (index) {
-    let value = $(this).attr("id");
+    var value = $(this).attr("id");
     if (dataToAdd[index][value]) {
       $(this).text(dataToAdd[index][value]);
     }
