@@ -1,5 +1,18 @@
 var timeSlot;
-
+//delcare times of the day to reference
+var timeOfDay = [
+  { eight: "8:00am" },
+  { nine: "9:00am" },
+  { ten: "10:00am" },
+  { eleven: "11:00am" },
+  { twelve: "12:00pm" },
+  { one: "1:00pm" },
+  { two: "2:00pm" },
+  { three: "3:00pm" },
+  { four: "4:00pm" },
+  { five: "5:00pm" },
+  { six: "6:00pm" },
+];
 //set a variable to the current date
 var CurrentDayVariable = moment().format("dddd, MMMM Do");
 //set a interval is run every 12 hours to update the time
@@ -51,32 +64,19 @@ $(".row").on("blur", "textarea", function () {
 $(".time-slot").each(function (index) {
   //remove classes to ensure that no extra classes are applied
   $(this).removeClass("past present future");
-  //delcare times of the day to reference
-  var timeOfDayInterval = [
-    { eight: "8:00am" },
-    { nine: "9:00am" },
-    { ten: "10:00am" },
-    { eleven: "11:00am" },
-    { twelve: "12:00pm" },
-    { one: "1:00pm" },
-    { two: "2:00pm" },
-    { three: "3:00pm" },
-    { four: "4:00pm" },
-    { five: "5:00pm" },
-    { six: "6:00pm" },
-  ];
+
   //get the current elements id
   var currentDivAttr = $(this).attr("id");
   //loop through the dates array
-  for (i = 0; i < timeOfDayInterval.length; i++) {
+  for (i = 0; i < timeOfDay.length; i++) {
     //if the current elements id value matches the key of the days array check time
-    if (timeOfDayInterval[i][currentDivAttr]) {
+    if (timeOfDay[i][currentDivAttr]) {
       //declare a variable as a moment object for the value of the matching time array and a variable thats one hour ahead
-      var firstMoment = moment(timeOfDayInterval[i][currentDivAttr], "h:mma");
-      var secondMoment = moment(
-        timeOfDayInterval[i][currentDivAttr],
-        "h:mma"
-      ).add(1, "hours");
+      var firstMoment = moment(timeOfDay[i][currentDivAttr], "h:mma");
+      var secondMoment = moment(timeOfDay[i][currentDivAttr], "h:mma").add(
+        1,
+        "hours"
+      );
       //check if the times are either inbetween or after and apply the approprite color class, then return out of the loop
       if (moment().isBetween(firstMoment, secondMoment)) {
         $(this).addClass("present");
@@ -103,21 +103,6 @@ $(".fa-regular").click(function () {
 });
 
 function getBgColor(div, id) {
-  //declare an array of objects to hold time of day
-  var timeOfDay = [
-    { eight: "8:00am" },
-    { nine: "9:00am" },
-    { ten: "10:00am" },
-    { eleven: "11:00am" },
-    { twelve: "12:00pm" },
-    { one: "1:00pm" },
-    { two: "2:00pm" },
-    { three: "3:00pm" },
-    { four: "4:00pm" },
-    { five: "5:00pm" },
-    { six: "6:00pm" },
-  ];
-
   //NOTE: correct way of indexing into a array of objects is arrayName[index][key] NOT: arrayName[i].index
   for (i = 0; i < timeOfDay.length; i++) {
     if (timeOfDay[i][id]) {
@@ -143,7 +128,7 @@ function saveTasks(data, id) {
   var existingItems = JSON.parse(localStorage.getItem("tasks"));
   //if there is no data set the array to empty
   if (existingItems === null) existingItems = [];
-  //loop through the array, if the key of an object matches the data id being updated delete the object 
+  //loop through the array, if the key of an object matches the data id being updated delete the object
   for (x = 0; x < existingItems.length; x++) {
     //for some reason if the input is "" , a empty copy is created, to fix this check for === ""
     if (existingItems[x][id] || existingItems[x][id] === "") {
