@@ -139,19 +139,23 @@ function getBgColor(div, id) {
 }
 
 function saveTasks(data, id) {
+  //get the local storage data
   var existingItems = JSON.parse(localStorage.getItem("tasks"));
-  //console.log(existingItems);
+  //if there is no data set the array to empty
   if (existingItems === null) existingItems = [];
-
+  //loop through the array, if the key of an object matches the data id being updated delete the object 
   for (x = 0; x < existingItems.length; x++) {
-    if (existingItems[x][id]) {
+    //for some reason if the input is "" , a empty copy is created, to fix this check for === ""
+    if (existingItems[x][id] || existingItems[x][id] === "") {
       console.log("this id exists already");
       existingItems.splice(x, 1);
     }
   }
+  //add the data object to the array
   existingItems.push(data);
-
+  //set the array in local storage
   localStorage.setItem("tasks", JSON.stringify(existingItems));
+  alert("Saved!");
 }
 
 function getLocalStorage() {
@@ -161,19 +165,26 @@ function getLocalStorage() {
   if (!storedtasks) {
     return false;
   }
-  // parse into array of objects
+  // change the array from strings to regular key value pairs
   storedtasks = JSON.parse(storedtasks);
 
   return storedtasks;
 }
 
+//when the document loads get local storage and append the tasks to the time slots
 $(document).ready(function () {
+  //get array of object from local storage and store it in a variable
   var dataToAdd = getLocalStorage();
-
+  //.each will loop through the select node list of time-slots
   $(".time-slot").each(function (index) {
+    //get the id value of the current time slot div
     var value = $(this).attr("id");
-    if (dataToAdd[index][value]) {
-      $(this).text(dataToAdd[index][value]);
-    }
+    //loop through the array of objects
+    dataToAdd.forEach((data) => {
+      //if the nth object key matches / returns true apply the value of it to the current time slot div
+      if (data[value]) {
+        $(this).text(data[value]);
+      }
+    });
   });
 });
