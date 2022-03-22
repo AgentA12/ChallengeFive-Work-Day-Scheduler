@@ -94,18 +94,12 @@ $(".time-slot").each(function (index) {
 
 //add a click event listener on the save icons
 $(".fa-regular").click(function () {
-  //alert the user
-  //alert("Saved to local storage!")
-  //create array of objects for local storage
-  let taskData = [];
-
   //get the matching time-slot elements text content and id to use for local storage
   let storageId = $(this).parent().siblings().closest(".time-slot").attr("id");
   let textContent = $(this).parent().siblings().closest(".time-slot").text();
-  //push to task array. NOTE: to add a key dynamically, use {[keyName]: valueName}. not {keyName: valueName}
-  taskData.push({ [storageId]: textContent });
-
-  saveTasks(taskData);
+  //save tasks to an object NOTE: to add a key dynamically, use {[keyName]: valueName}. not {keyName: valueName}
+  let dataObject = { [storageId]: textContent };
+  saveTasks(dataObject);
 });
 
 function getBgColor(div, id) {
@@ -144,4 +138,36 @@ function getBgColor(div, id) {
   }
 }
 
-function saveTasks() {}
+function saveTasks(data) {
+  var existingItems = JSON.parse(localStorage.getItem("tasks"));
+
+  if (existingItems === null) existingItems = [];
+
+  existingItems.push(data);
+
+  localStorage.setItem("tasks", JSON.stringify(existingItems));
+}
+
+function getLocalStorage() {
+  var storedtasks = localStorage.getItem("tasks");
+
+  // if there are no tasks, set tasks to an empty array and return out of the function
+  if (!storedtasks) {
+    return false;
+  }
+  // parse into array of objects
+  storedtasks = JSON.parse(storedtasks);
+
+  return storedtasks;
+}
+
+$(document).ready(function () {
+  let dataToAdd = getLocalStorage();
+
+  $(".time-slot").each(function (index) {
+    let value = $(this).attr("id");
+    if (dataToAdd[index][value]) {
+      $(this).text(dataToAdd[index][value]);
+    }
+  });
+});
